@@ -17,7 +17,7 @@ function App() {
     <Header/>
 
     {
-      !user ? (<Login/>) :    (<div className={`app_central ${isopen ? "displayed":""}`}>
+      !user ? (<Login/>) :    (<div className={`app__central ${isopen ? "displayed":""}`}>
                                <SideBar/>
                                 <Main/>
                                 </div> )
