@@ -8,18 +8,29 @@ import { useStateValue } from './StateProvider';
 
 function App() {
 
-  const [{isopen},dispatch]=useStateValue()
+  const [{isopen,user},dispatch]=useStateValue()
 
 
   return (
     <div className="App">
-    {/* <Login/> */}
+  
     <Header/>
 
-    <div className={`app__central ${isopen ? "displayed":""}`}>
-    <SideBar/>
-    <Main/>
-    </div>
+    {
+      !user ? (<Login/>) :    (<div className={`app_central ${isopen ? "displayed":""}`}>
+                               <SideBar/>
+                                <Main/>
+                                </div> )
+    }
+
+
+
+
+    {/* <Login/>
+    <div className={`app__central ${isopen ? "displayed":""}`}> */}
+    {/* <SideBar/>
+    <Main/> */}
+    {/* </div> */}
 
 
 

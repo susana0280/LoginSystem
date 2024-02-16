@@ -1,12 +1,12 @@
 export  const initialState={
     isopen:false,
-    // user:null
+    user:null
 }
 
 export const actionTypes={
 
     TOGGLE_MENU:'TOGGLE_MENU',
-    // SET_USER:'SET_USER'
+    SET_USER:'SET_USER'
 
 }
 
@@ -25,12 +25,12 @@ export const actionTypes={
                 isopen:action.isopen
             }
 
-        // case actionTypes.SET_USER:
+        case actionTypes.SET_USER:
 
-        // return {
-        //     ...state,
-        //     user:action.user
-        // }
+        return {
+            ...state,
+            user:action.user
+        }
             default: return state 
     }
   
