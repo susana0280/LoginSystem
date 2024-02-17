@@ -25,8 +25,8 @@ const Login = () => {
 
   return (
     <div className="login" >
-      login
-      <h1>Welcom to out blog app!</h1>
+      
+      <h1>Welcome to out blog app!</h1>
       <Button variant="contained" color='primary' onClick={signin}>Sign in with Google</Button>
     </div>
   )

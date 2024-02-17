@@ -1,31 +1,48 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../components/Main.css'
-// import Post from './Post'
-// import '../components/Post'
 import Post from '../components/Post'
 import { TextField } from '@mui/material'
+import firebase, { db } from '../firebase'
 
 
 
 const Main = () => {
   
+ 
+
+
   const[posts,setPosts]=useState([])
   
   const[input,setInput]=useState({
         title:'',
         text:''
   })
+  useEffect(()=>{
+
+    db.collection('posts').onSnapshot(snapshot=>setPosts(snapshot.docs.map(doc=>(
+      {
+      id:doc.id,
+      data:doc.data()
   
+    })))
+    )},[])
+  console.log(posts)
+
   const handleSubmit=(e)=>{
     e.preventDefault()
    
-    if(input.title && input.text){
-      setPosts([input, ...posts])
-   
+    if(input.text){
+
+      db.collection('posts').add({
+        title:input.title,
+        text:input.text
+      
+      })
+ 
       setInput({
-        title:'',
-        text:''
+        title:"",
+        text:""
       })
     }
     else(
@@ -33,8 +50,12 @@ const Main = () => {
     )
 
   }
-  // console.log(posts)
+
  
+
+
+
+
   return (
     <div className='main'>
      
@@ -46,7 +67,7 @@ const Main = () => {
              
             
               </div>
-              <button type='submit' onClick={handleSubmit}>Click Me</button>
+              <button type='submit' onClick={handleSubmit}></button>
            
           </form>   
       </div>
@@ -54,7 +75,7 @@ const Main = () => {
       <div className='main__post'>
       
       {
-        posts.map(({title,text})=><Post title={title} text={text}/>)
+        posts.map(({id,data:{title,text}})=><Post title={title} text={text} />)
       }
       
       </div>
