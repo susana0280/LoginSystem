@@ -8,10 +8,21 @@ import SideBar from './components/SideBar';
 import { useStateValue } from './StateProvider';
 import { actionTypes } from './reducer';
 import{auth} from './firebase'
+import { CssBaseline, createTheme } from '@mui/material';
+import { ThemeProvider } from '@emotion/react';
 
 function App() {
 
-  const [{isopen,user},dispatch]=useStateValue()
+  const [{isopen,user,darkMode},dispatch]=useStateValue()
+
+
+  const theme=createTheme({
+
+    palette:{
+      type: darkMode ? "dark" : "light",
+      mode: darkMode ? "dark" : "light"
+    }
+  })
 
   useEffect(()=>{
     
@@ -33,19 +44,31 @@ function App() {
   return (
     <div className="App">
   
-    <Header/>
+    
 
     {
-      !user ? (<Login/>) :    (<div className={`app__central ${isopen ? "displayed":""}`}>
-                               <SideBar/>
-                                <Main/>
-                                </div> )
-    }
+      !user ? (
+        <>
+        <Header/>
+       <Login/>
+      </>) : 
+         (
+          <>
+          <ThemeProvider theme={theme}>
+            <CssBaseline/>
+                <Header/>
+               <div className={`app__central ${isopen ? "displayed":""}`}>
+                <SideBar/>
+                <Main/>
+                </div> 
+        </ThemeProvider>
+         </>                  
+           
+          ) }  
 
 
-
-
-    </div>
+         </div>
+        
   );
 }
 

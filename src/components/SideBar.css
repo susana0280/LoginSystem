@@ -1,9 +1,22 @@
 
 .sidebar{
-border: solid orangered;
+border: solid goldenrod;
 border-radius: 1rem;
 margin-top: 1rem;
-margin-right: 1rem;
+margin-right: 5rem;
 padding: 1rem;
-transform: translate(-200px);
+transform: translate(-230px);
+}
+
+.sidebar__top{
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
+    border-bottom: 2px solid goldenrod;
+}
+
+.sidebar__bottom{
+
+    margin-top: 2rem;
+
 }

@@ -1,12 +1,14 @@
 export  const initialState={
     isopen:false,
-    user:null
+    user:null,
+    darkMode:false
 }
 
 export const actionTypes={
 
     TOGGLE_MENU:'TOGGLE_MENU',
-    SET_USER:'SET_USER'
+    SET_USER:'SET_USER',
+    SET_DARKMODE:'SET_DARKMODE'
 
 }
 
@@ -30,6 +32,16 @@ export const actionTypes={
             ...state,
             user:action.user
         }
+
+
+        case actionTypes.SET_DARKMODE:
+
+            return {
+
+                ...state,
+                darkMode:action.darkMode
+            }
+
             default: return state 
     }
   

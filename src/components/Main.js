@@ -5,6 +5,7 @@ import Post from '../components/Post'
 import { TextField } from '@mui/material'
 import firebase, { db } from '../firebase'
 
+import firebaseDB from 'firebase/compat/app'
 
 
 const Main = () => {
@@ -20,14 +21,14 @@ const Main = () => {
   })
   useEffect(()=>{
 
-    db.collection('posts').onSnapshot(snapshot=>setPosts(snapshot.docs.map(doc=>(
+    db.collection('posts').orderBy("timestamp","desc").onSnapshot(snapshot=>setPosts(snapshot.docs.map(doc=>(
       {
       id:doc.id,
       data:doc.data()
   
     })))
     )},[])
-  console.log(posts)
+
 
   const handleSubmit=(e)=>{
     e.preventDefault()
@@ -36,7 +37,8 @@ const Main = () => {
 
       db.collection('posts').add({
         title:input.title,
-        text:input.text
+        text:input.text,
+        timestamp:firebaseDB.firestore.FieldValue.serverTimestamp()
       
       })
  
@@ -75,7 +77,7 @@ const Main = () => {
       <div className='main__post'>
       
       {
-        posts.map(({id,data:{title,text}})=><Post title={title} text={text} />)
+        posts.map(({id,data:{title,text}})=><Post title={title} text={text} id={id} key={id}/>)
       }
       
       </div>

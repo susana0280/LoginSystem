@@ -1,9 +1,29 @@
 .post {
 
     background-color:white;
-    border: 1px solid orangered;
     border-radius: 1rem;
     padding: 1rem;
     margin: 1rem;
+
+}
+
+.post__body{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-radius: 1rem;
+    border: 1px solid goldenrod;
+    padding: 1rem;
+    margin: 1rem;
+    }
+
+.post__body h4{
+
+    color: grey;
+    }
+
+.avatar{
+    margin-top: -2rem;
+    margin-left: -2rem;
 
 }
