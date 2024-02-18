@@ -4,14 +4,14 @@ import '../components/Main.css'
 import Post from '../components/Post'
 import { TextField } from '@mui/material'
 import firebase, { db } from '../firebase'
-
+import FlipMove from 'react-flip-move';
 import firebaseDB from 'firebase/compat/app'
+import { useStateValue } from '../StateProvider';
 
 
 const Main = () => {
   
- 
-
+  const [{user},dispatch]=useStateValue()
 
   const[posts,setPosts]=useState([])
   
@@ -29,7 +29,7 @@ const Main = () => {
     })))
     )},[])
 
-
+console.log(user)
   const handleSubmit=(e)=>{
     e.preventDefault()
    
@@ -38,7 +38,10 @@ const Main = () => {
       db.collection('posts').add({
         title:input.title,
         text:input.text,
-        timestamp:firebaseDB.firestore.FieldValue.serverTimestamp()
+        username:user?.displayName,
+        avatar:user?.photoURL,
+        timestamp:firebaseDB.firestore.FieldValue.serverTimestamp(),
+        isBlue:false
       
       })
  
@@ -69,17 +72,19 @@ const Main = () => {
              
             
               </div>
-              <button type='submit' onClick={handleSubmit}></button>
+              <button className='button' type='submit' onClick={handleSubmit}></button>
            
           </form>   
       </div>
 
       <div className='main__post'>
-      
+      <FlipMove>
       {
-        posts.map(({id,data:{title,text}})=><Post title={title} text={text} id={id} key={id}/>)
+       
+        posts.map(({id,data:{title,text,isBlue,username,avatar}})=><Post title={title} text={text} id={id} key={id} isBlue={isBlue} username={username} avatar={avatar}/>)
+     
       }
-      
+      </FlipMove>
       </div>
 
     </div>

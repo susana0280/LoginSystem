@@ -5,8 +5,9 @@ import { Avatar, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import {db} from '../firebase'
+import { forwardRef } from 'react'
 
-const Post = ({title,text,id}) => {
+const Post = forwardRef(({title,text,id,isBlue,username},ref) => {
 
   const [{user},dispatch]=useStateValue();
 
@@ -17,10 +18,18 @@ const Post = ({title,text,id}) => {
 
   }
 
+  const likePost=()=>{
 
+    const likedPost=db.collection('posts').doc(id)
+
+    likedPost.get().then((doc)=>likedPost.update({
+      isBlue:!doc.data().isBlue
+
+    }))
+  }
 
   return (
-    <div className='post'>
+    <div className='post' ref={ref}>
      
       <div className='post__body'>
        
@@ -29,14 +38,19 @@ const Post = ({title,text,id}) => {
            <h1>{title}</h1>
            <h4>{text}</h4>
         </div>
+      
         <IconButton onClick={removePost} >
-       <DeleteIcon/>
+             <DeleteIcon/>
        </IconButton>
        </div>
-       <ThumbUpIcon/>
+       
+       <IconButton onClick={likePost}>
+          <ThumbUpIcon color={isBlue ? "primary" :""}/>
+       </IconButton>
+      {username}
     </div>
    
   )
-}
+})
 
 export default Post
